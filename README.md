@@ -1,0 +1,1 @@
+# myziny.github.io
