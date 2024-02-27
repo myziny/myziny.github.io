@@ -1,13 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    #datetime-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 36px;
+      transition: 1s ease-in-out;
+    }
+
+    #time {
+      display: inline-block;
+      margin-right: 10px; /* 시간과 분 사이의 간격 조절 */
+      font-size: 60px; /* 시간 글자 크기를 더 크게 조절 */
+    }
+  </style>
+  <title>Random Moving Clock</title>
 </head>
 <body>
-  <p>wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</p>
+  <div id="datetime-container">
+    <div id="date"></div>
+    <div id="time"></div>
+  </div>
 
+  <script>
+    function updateDateTime() {
+      const currentDate = new Date();
+
+      const year = currentDate.getFullYear();
+      const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentDate.getDate().toString().padStart(2, '0');
+      const hours = currentDate.getHours().toString().padStart(2, '0');
+      const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+      const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+      const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+      const dayOfWeek = daysOfWeek[currentDate.getDay()];
+
+      document.getElementById('date').textContent = `${year}-${month}-${day} (${dayOfWeek})`;
+      document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    function moveDateTime() {
+      const container = document.getElementById('datetime-container');
+      const maxX = window.innerWidth - container.clientWidth;
+      const maxY = window.innerHeight - container.clientHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      container.style.opacity = 0;
+
+      setTimeout(() => {
+        container.style.left = `${randomX}px`;
+        container.style.top = `${randomY}px`;
+        container.style.opacity = 1;
+        setTimeout(moveDateTime, 5000);
+      }, 1000);
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    setTimeout(moveDateTime, 5000);
+  </script>
 </body>
 </html>
