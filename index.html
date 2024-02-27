@@ -19,16 +19,15 @@
       text-align: center;
       font-family: Helvetica, Arial, sans-serif;
       font-size: 36px;
-      transition: 1s ease-in-out;
     }
 
     #time {
       display: inline-block;
-      margin-right: 10px; /* 시간과 분 사이의 간격 조절 */
-      font-size: 60px; /* 시간 글자 크기를 더 크게 조절 */
+      margin-right: 10px;
+      font-size: 48px;
     }
   </style>
-  <title>Random Moving Clock</title>
+  <title>Instant Moving Clock</title>
 </head>
 <body>
   <div id="datetime-container">
@@ -61,14 +60,10 @@
       const randomX = Math.random() * maxX;
       const randomY = Math.random() * maxY;
 
-      container.style.opacity = 0;
-
-      setTimeout(() => {
-        container.style.left = `${randomX}px`;
-        container.style.top = `${randomY}px`;
-        container.style.opacity = 1;
-        setTimeout(moveDateTime, 5000);
-      }, 1000);
+      container.style.left = `${randomX}px`;
+      container.style.top = `${randomY}px`;
+      
+      setTimeout(moveDateTime, 5000);
     }
 
     updateDateTime();
