@@ -24,7 +24,12 @@
     #time {
       display: inline-block;
       margin-right: 10px;
-      font-size: 60px;
+      font-size: 64px;
+    }
+
+    /* 추가한 스타일 */
+    #date, #time {
+      padding: 0 20px; /* 좌우 여백 추가 */
     }
   </style>
   <title>Instant Moving Clock</title>
@@ -54,8 +59,9 @@
 
     function moveDateTime() {
       const container = document.getElementById('datetime-container');
-      const maxX = window.innerWidth - container.clientWidth;
-      const maxY = window.innerHeight - container.clientHeight;
+      const containerRect = container.getBoundingClientRect();
+      const maxX = window.innerWidth - containerRect.width;
+      const maxY = window.innerHeight - containerRect.height;
 
       const randomX = Math.random() * maxX;
       const randomY = Math.random() * maxY;
