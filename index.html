@@ -57,20 +57,30 @@
       document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
     }
 
-    function moveDateTime() {
-      const container = document.getElementById('datetime-container');
-      const containerRect = container.getBoundingClientRect();
-      const maxX = window.innerWidth - containerRect.width;
-      const maxY = window.innerHeight - containerRect.height;
+	function moveDateTime() {
+	  const container = document.getElementById('datetime-container');
+	  const dateElement = document.getElementById('date');
+	  const timeElement = document.getElementById('time');
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+	  const containerRect = container.getBoundingClientRect();
+	  const dateRect = dateElement.getBoundingClientRect();
+	  const timeRect = timeElement.getBoundingClientRect();
 
-      container.style.left = `${randomX}px`;
-      container.style.top = `${randomY}px`;
-      
-      setTimeout(moveDateTime, 5000);
-    }
+	  const totalWidth = Math.max(dateRect.width, timeRect.width) + 40; // Considering padding
+	  const totalHeight = dateRect.height + timeRect.height + 40; // Considering padding
+
+	  const maxX = window.innerWidth - totalWidth;
+	  const maxY = window.innerHeight - totalHeight;
+
+	  const randomX = Math.random() * maxX;
+	  const randomY = Math.random() * maxY;
+
+	  // Ensure the container stays within the window bounds
+	  container.style.left = `${Math.max(0, randomX)}px`;
+	  container.style.top = `${Math.max(0, randomY)}px`;
+
+	  setTimeout(moveDateTime, 5000);
+	}
 
     updateDateTime();
     setInterval(updateDateTime, 1000);
