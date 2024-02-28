@@ -79,11 +79,11 @@
 	  container.style.left = `${Math.max(0, randomX)}px`;
 	  container.style.top = `${Math.max(0, randomY)}px`;
 
-	  setTimeout(moveDateTime, 5000);
+	  setTimeout(moveDateTime, 10000);
 	}
 
     updateDateTime();
-    setInterval(updateDateTime, 2000);
+    setInterval(updateDateTime, 1000);
     setTimeout(moveDateTime, 10000);
   </script>
 </body>
