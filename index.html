@@ -79,11 +79,11 @@
 	  container.style.left = `${Math.max(0, randomX)}px`;
 	  container.style.top = `${Math.max(0, randomY)}px`;
 
-	  setTimeout(moveDateTime, 10000);
+      setTimeout(moveDateTime, 60000); // 60초마다 위치 이동
 	}
 
     updateDateTime();
-    setInterval(updateDateTime, 1000);
+    setInterval(updateDateTime, 1000); // 1초마다 시간을 업데이트
     setTimeout(moveDateTime, 5000);
   </script>
 </body>
