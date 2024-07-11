@@ -1,7 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    #datetime-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 36px;
+    }
+
+    #time {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 64px;
+    }
+
+    /* 추가한 스타일 */
+    #date, #time {
+      padding: 0 20px; /* 좌우 여백 추가 */
+    }
+  </style>
+  <title>My Clock</title>
+</head>
 <body>
-    <a href="https://naver.com" target="_blank">네이버</a></br>
-    <a href="https://daum.net" target="_blank">카카오</a></br>
-    <a href="01.html">01.html</a></br>
+  <div id="datetime-container">
+    <div id="date"></div>
+    <div id="time"></div>
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const currentDate = new Date();
+
+      const year = currentDate.getFullYear();
+      const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentDate.getDate().toString().padStart(2, '0');
+      const hours = currentDate.getHours().toString().padStart(2, '0');
+      const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+      const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+      const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+      const dayOfWeek = daysOfWeek[currentDate.getDay()];
+
+      document.getElementById('date').textContent = `${year}-${month}-${day} (${dayOfWeek})`;
+      document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+	function moveDateTime() {
+	  const container = document.getElementById('datetime-container');
+	  const dateElement = document.getElementById('date');
+	  const timeElement = document.getElementById('time');
+
+	  const containerRect = container.getBoundingClientRect();
+	  const dateRect = dateElement.getBoundingClientRect();
+	  const timeRect = timeElement.getBoundingClientRect();
+
+	  const totalWidth = Math.max(dateRect.width, timeRect.width) + 40; // Considering padding
+	  const totalHeight = dateRect.height + timeRect.height + 40; // Considering padding
+
+	  const maxX = window.innerWidth - totalWidth;
+	  const maxY = window.innerHeight - totalHeight;
+
+	  const randomX = Math.random() * maxX;
+	  const randomY = Math.random() * maxY;
+
+	  // Ensure the container stays within the window bounds
+	  container.style.left = `${Math.max(0, randomX)}px`;
+	  container.style.top = `${Math.max(0, randomY)}px`;
+
+      setTimeout(moveDateTime, 60000); // 60초마다 위치 이동
+	}
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // 1초마다 시간을 업데이트
+
+  </script>
 </body>
 </html>
